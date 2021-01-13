@@ -346,4 +346,3 @@ Vous pouvez :
     ``` Java
     editTextNb1.setError("Champ obligatoire");
     ```
-
