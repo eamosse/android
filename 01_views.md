@@ -1,7 +1,7 @@
-# Les activités et les intentions 
+# Les vues en Android
 Dans ce TP, nous allons expérimenté l'usage des vues dans une application Android. 
 
-Pour cela, nous allons developper une application disposant de deux boutons et un champ de texte : 
+Pour cela, nous allons developper une application disposant de deux boutons et un texte : 
 - Le premier bouton permet d'incrémenter un compteur
 - Le second permet d'afficher dans un toast le nombre de cliques sur le premier bouton. 
 
