@@ -6,7 +6,7 @@ Dans ce TP, nous allons expérimenté les activités et les intentions dans le b
 > La création ainsi que la gestion du cycle de vie d'une activité sont traitées intégralement par le système d'exploitation Android. Ainsi, le developpeur ne peut pas créer implicitement une activité, ni la détruire; c'est du ressort du systme d'exploitation. Les activités sont créées via des intentions. 
 
 ## 1. Créer une application
-- Créez un nouveau projet : TPO1_NOM_PRENOM
+- Créez un nouveau projet : TPO2_NOM_PRENOM
 
 > Assurez-vous d'avoir selectionné Java dans l'option language
 
