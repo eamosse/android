@@ -11,7 +11,7 @@ Modifier le layout de l'acticité principale pour y ajouter 5 boutons:
 1. Un bouton permettant de lancer le TP01
 2. Un bouton permettant de lancer le TP02 
 3. Un un bouton permettant de lancer le TP03 
-4. Un bouton permettant de lancer le Tp05
+4. Un bouton permettant de lancer le Tp04
 5. Commitez les changements sur git
 
 # 3. Ajouter un nouveau module
