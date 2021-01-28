@@ -14,7 +14,7 @@ Pour cela, nous allons créer une application qui comporte une seule activité. 
 
 ## Modifier l'application du TP01
 Pour permettre le lancement de l'application TP01 depuis une autre application. Pour cela, il faut ajouter un filtre d'intention avec les propriétés suivantes : 
-- action : mbds.haiti.TOASt
+- action : mbds.haiti.TOAST
 - category: android.intent.category.DEFAULT
 
 Exemple
