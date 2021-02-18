@@ -684,4 +684,4 @@ C'est à vous de coder
 ```
 
 ## Partie 2
-[Cliquez ici](./tp2.md)
+[Cliquez ici](./tp3.md)
