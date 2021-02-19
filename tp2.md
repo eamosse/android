@@ -194,9 +194,13 @@ Bouton droit sur le dossier drawable puis selectionnez Vector Assets, cliquez su
 - A la création de l'activité, ajoutez le fragment ListNeighborsFragment comme fragment initial 
 
 ```kotlin 
+    ....
+    private lateinit var binding: ActivityMainBinding
+    .....
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MainActivityBinding.inflate(layoutInflator)
+        binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         changeFragment(ListNeighborsFragment())
     }
@@ -281,7 +285,7 @@ interface NeighborDatasource {
 > N'ayant pas de web service ni de bases de données, nous allons tout gérer en mémoire pour l'instant. Ainsi, ```InMemoryNeighborDataSource``` est une implémentation de l'interface ```NeighborDatasource``` dont le but est de gérer les données de l'application en mémoire.
 
 ```kotlin
-class InMemoryNeighborDataSource : NeighborDataSource {
+class InMemoryNeighborDataSource : NeighborDatasource {
    
     override val neighbours: List<Neighbor>
         get() = InMemory_NeighborS
@@ -298,7 +302,7 @@ class InMemoryNeighborDataSource : NeighborDataSource {
         TODO("Not yet implemented")
     }
 
-    override fun updateDataNeighbour(neighbor: Neighbor) {
+    override fun updateNeighbour(neighbor: Neighbor) {
         TODO("Not yet implemented")
     }
 
@@ -492,16 +496,10 @@ class InMemoryNeighborDataSource : NeighborDataSource {
 
 ```kotlin 
 class NeighborRepository {
-    private val dataSource: NeighborDataSource
+    private val dataSource: NeighborDatasource
 
-    // On ne veut pas qu'on puisse instancier le repository de l'extérieur; pour cela on rend son constructeur private
-    private constructor() {
-        
-    }
-
-    // Quand le repository est instancié, on charge instance la datasource aussi 
     init {
-        
+        dataSource = InMemoryNeighborDataSource()
     }
 
     // Méthode qui retourne la liste des voisins
@@ -509,6 +507,7 @@ class NeighborRepository {
 
     companion object {
         private var instance: NeighborRepository? = null
+
         // On crée un méthode qui retourne l'instance courante du repository si elle existe ou en crée une nouvelle sinon
         fun getInstance(): NeighborRepository {
             if (instance == null) {
@@ -536,9 +535,8 @@ class ListNeighborsAdapter(
 ) : RecyclerView.Adapter<ListNeighborsAdapter.ViewHolder>() {
     private val mNeighbours: List<Neighbor> = items
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.neighbor_item, parent, false)
-        return ViewHolder(view)
+        val binding: NeighborItemBinding = NeighborItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -551,10 +549,8 @@ class ListNeighborsAdapter(
         return mNeighbours.size
     }
 
-    class ViewHolder(binding: NeighborItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-    }
-
+    class ViewHolder(val binding: NeighborItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
 ```
 
@@ -571,9 +567,9 @@ class ListNeighborsAdapter(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ListNeignborsFragmentBinging.inflate(inflater, container, false)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.addItemDecoration(
+        binding = ListNeighborsFragmentsBinding.inflate(inflater, container, false)
+        binding.neighborsList.layoutManager = LinearLayoutManager(context)
+        binding.neighborsList.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
                 DividerItemDecoration.VERTICAL
@@ -587,11 +583,11 @@ class ListNeighborsAdapter(
 
 ```kotlin 
 override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    val neighbors = NeighborRepository.getInstance().getNeighbours()
-    val adapter = ListNeighborsAdapter(neighbors)
-    binding.recyclerView.adapter = adapter
-}
+        super.onViewCreated(view, savedInstanceState)
+        val neighbors = NeighborRepository.getInstance().getNeighbours()
+        val adapter = ListNeighborsAdapter(neighbors)
+        binding.neighborsList.adapter = adapter
+    }
 ```
 
 - Exécutez le projet
