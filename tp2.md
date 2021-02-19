@@ -653,17 +653,40 @@ Pour y arriver, on doit faire communiquer le fragment ``ListNeighborsFragment`` 
 
 - Modifiez le fragment ``ListNeighborsFragment`` pour implémenter l'interface ``ListNeighborHandler``
 
-```
-Maintenant c'est à vous de jouer
+```kotlin
+class ListNeighborsFragment : Fragment(), ListNeighborHandler{
+    ....
+    // Quand on clique sur le bouton delete dans la liste, l'adapteur appelera cette méthode
+    override fun onDeleteNeibor(neighbor: Neighbor) {
+        TODO("Not yet implemented")
+    }
+    ....
+}
 ```
 
 - Modifiez le constructeur de l'adapteur pour y ajouter en paramètre une instance de l'interface ``ListNeighborHandler``
 
-```
-C'est encore à vous de jouer
+```kotlin
+class ListNeighborsAdapter(
+    items: List<Neighbor>,
+    val callback: ListNeighborHandler
+) {
+    ...
+    ...
+}
 ```
 
 - Modifiez la fonction ``onBindViewHolder`` dans ``ListNeighborHandler`` pour intercepter le clique sur le bouton ``delete``. 
+
+```kotlin
+override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        ....
+        holder.binding.itemListDeleteButton.setOnClickListener {
+            callback.onDeleteNeibor(neighbour)
+        }
+        ....
+    }
+```
 
 > Quand on clique sur le bouton, il faut appeler la fonction ``onDeleteNeighbor`` de l'interface. 
 
