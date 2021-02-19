@@ -136,6 +136,10 @@ Bouton droit sur le dossier drawable puis selectionnez Vector Assets, cliquez su
 - Modifiez la classe ```ListNeighborsFragment``` pour y associer la vue qu'on vient de dérinir. Pour cela, surchargez la fonction onCreateView pour qu'elle retourne une instance du layout list_neighbors_fragment comme vue principale.
 
 ```kotlin
+    ...
+    // lateinit permet d'indiquer au compilateur que la variable sera initialisé plus tard -> Dans le onCreateView
+    private lateinit var binding: ListNeighborsFragmentsBinding
+    ...
     /**
      * Fonction permettant de définir une vue à attacher à un fragment 
      */
@@ -277,7 +281,7 @@ interface NeighborDatasource {
 > N'ayant pas de web service ni de bases de données, nous allons tout gérer en mémoire pour l'instant. Ainsi, ```InMemoryNeighborDataSource``` est une implémentation de l'interface ```NeighborDatasource``` dont le but est de gérer les données de l'application en mémoire.
 
 ```kotlin
-class InMemo ryNeighborDataSource : NeighborDataSource {
+class InMemoryNeighborDataSource : NeighborDataSource {
    
     override val neighbours: List<Neighbor>
         get() = InMemory_NeighborS
