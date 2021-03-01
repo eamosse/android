@@ -83,7 +83,7 @@ class NeighborEntity(
 @Dao
 interface NeighborDao {
     @Query("SELECT * from neighbors")
-    fun getNeighbors(): LiveData<List<NeighborDao>>
+    fun getNeighbors(): LiveData<List<NeighborEntity>>
 }
 ```
 
